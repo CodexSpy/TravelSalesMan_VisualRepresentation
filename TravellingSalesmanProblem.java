@@ -82,7 +82,7 @@ public class TravellingSalesmanProblem extends JPanel {
             }
         }
 
-        // Trace back to find the path
+        // find the path
         int mask = (1 << n) - 1;
         int pos = lastCity;
         while (mask != 1) {
@@ -121,14 +121,12 @@ public class TravellingSalesmanProblem extends JPanel {
             cityPositions[i] = new Point(x, y);
         }
 
-        // Draw edges with weights
         g2d.setColor(Color.LIGHT_GRAY);
         g2d.setFont(EDGE_FONT);
         for (int i = 0; i < n; i++) {
             for (int j = i + 1; j < n; j++) {
                 g2d.draw(new Line2D.Double(cityPositions[i], cityPositions[j]));
 
-                // Draw weight text with background
                 String weight = String.valueOf(graph[i][j]);
                 FontMetrics fm = g2d.getFontMetrics();
                 int textWidth = fm.stringWidth(weight);
@@ -136,25 +134,23 @@ public class TravellingSalesmanProblem extends JPanel {
                 int midX = (cityPositions[i].x + cityPositions[j].x) / 2;
                 int midY = (cityPositions[i].y + cityPositions[j].y) / 2;
 
-                // Background rectangle
                 g2d.setColor(Color.WHITE);
                 g2d.fillRect(midX - textWidth / 2 - TEXT_PADDING, midY - textHeight / 2 - TEXT_PADDING,
                              textWidth + 2 * TEXT_PADDING, textHeight + 2 * TEXT_PADDING);
 
-                // Draw text
+              
                 g2d.setColor(Color.BLACK);
                 g2d.drawString(weight, midX - textWidth / 2, midY + textHeight / 2);
             }
         }
 
-        // Draw shortest path
         g2d.setColor(Color.GREEN);
         g2d.setStroke(new BasicStroke(2));
         for (int i = 0; i < path.size() - 1; i++) {
             g2d.draw(new Line2D.Double(cityPositions[path.get(i)], cityPositions[path.get(i + 1)]));
         }
 
-        // Draw cities
+       
         g2d.setColor(Color.RED);
         g2d.setFont(CITY_FONT);
         for (int i = 0; i < n; i++) {
@@ -167,7 +163,6 @@ public class TravellingSalesmanProblem extends JPanel {
             g2d.drawString(cityLabel, cityPositions[i].x - textWidth / 2, cityPositions[i].y - CITY_RADIUS - 5);
         }
 
-        // Display minimum cost
         g2d.setColor(Color.BLUE);
         g2d.setFont(COST_FONT);
         g2d.drawString("Minimum Cost: " + minCost, PADDING, getHeight() - PADDING / 2);
